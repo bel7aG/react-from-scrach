@@ -1,9 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import App from "./components";
 import * as serviceWorker from "./serviceWorker";
-import "./playground/1-redux";
+import store from "store";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const myStore = store();
+
+ReactDOM.render(
+  <Provider store={myStore}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 
 serviceWorker.unregister();
