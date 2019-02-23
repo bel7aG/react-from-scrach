@@ -9,7 +9,10 @@ export default class Videos extends Component {
   };
 
   componentDidMount() {
-    this.handleTermSubmit();
+    const randomSearch = ["tunisia", "reactjs", "es6", "asus gl 704gm"];
+    this.handleTermSubmit(
+      randomSearch[Math.floor(Math.random() * randomSearch.length - 1) + 1]
+    );
   }
 
   handleTermSubmit = async term => {
@@ -21,7 +24,8 @@ export default class Videos extends Component {
       });
       const { items } = response.data;
       this.setState({
-        videos: items
+        videos: items,
+        selectedVideo: items[0]
       });
     } catch (error) {
       console.error(error);
@@ -40,7 +44,7 @@ export default class Videos extends Component {
       <div>
         <h1>Videos component</h1>
         <SearchBar handleFormSubmit={this.handleTermSubmit} />
-        <VideoDetails video={selectedVideo} />
+        {selectedVideo && <VideoDetails video={selectedVideo} />}
         <VideoList videos={videos} handleVideoSelect={this.handleVideoSelect} />
       </div>
     );
